@@ -5,23 +5,23 @@
 def solution(A):
     # write your code in Python 3.6
     """Finds the minimum absolute difference between an arbitrarily partitioned array."""
+    if not A:
+        return 0
 
-    A.sort()
-    length = len(A)
-    midpoint = length // 2
-    left = sum(A[:midpoint])
-    right = sum(A[midpoint:])
+    else:
 
-    answer = abs(left - right)  # we initialise the answer approximately
+        A.sort(reverse=True)
+        length = len(A)
+        left, right = A[0], sum(A[1:])
+        answer = abs(left - right)
 
-    for i in range(length):
-        left = sum(A[:i])
-        right = sum(A[i:])
+        for i in range(1, length):
+            left += A[i]
+            right -= A[i]
+            answer = min(answer, abs(left - right))
 
-        diff = abs(left - right)
-        if diff < answer:
-            answer = diff
     return answer
 
 
-print(solution([1, 2, 3, 4, 5, 6]))
+lst = [x for x in range(1000)]
+print(solution(lst))
